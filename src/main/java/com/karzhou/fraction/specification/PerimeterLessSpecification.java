@@ -15,11 +15,9 @@ public class PerimeterLessSpecification implements Specification {
         if (figure == null || figure.perimeter() == null) {
             return false;
         }
-        // Проверяем, что периметр меньше threshold
         return figure.perimeter().compareTo(threshold) < 0;
     }
 
-    // Для удобства можно добавить конструктор с double
     public PerimeterLessSpecification(double threshold) {
         this.threshold = BigDecimal.valueOf(threshold);
     }

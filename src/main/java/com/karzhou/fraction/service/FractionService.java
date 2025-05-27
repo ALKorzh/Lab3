@@ -7,8 +7,6 @@ import java.util.List;
 
 public class FractionService {
 
-    // Метод, который изменяет каждый элемент с четным индексом,
-    // добавляя следующий за ним элемент
     public void modifyEvenIndices(FractionRepository repository) {
         int size = repository.size();
         for (int i = 0; i < size - 1; i += 2) {
@@ -19,7 +17,6 @@ public class FractionService {
         }
     }
 
-    // Дополнительно: операции с дробями в сервисе, если нужно
     public Fraction add(Fraction a, Fraction b) {
         return a.add(b);
     }
@@ -36,7 +33,6 @@ public class FractionService {
         return a.divide(b);
     }
 
-    // Вывод списка дробей в строку
     public String fractionsToString(List<Fraction> fractions) {
         StringBuilder sb = new StringBuilder();
         for (Fraction f : fractions) {

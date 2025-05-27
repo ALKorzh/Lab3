@@ -1,19 +1,12 @@
 package com.karzhou.fraction.warehouse;
 
 import com.karzhou.fraction.entity.Figure;
-import com.karzhou.fraction.observer.Observer;
-import com.karzhou.fraction.observer.Observable;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Singleton Warehouse для хранения вычисленных значений фигур.
- * Не потокобезопасный.
- */
-public class Warehouse implements Observer {
-
+public class Warehouse {
     private static Warehouse instance;
 
     private final Map<Integer, FigureMetrics> storage = new ConcurrentHashMap<>();
@@ -28,13 +21,9 @@ public class Warehouse implements Observer {
         return instance;
     }
 
-    @Override
-    public void update(Observable o) {
-        if (o instanceof Figure) {
-            Figure figure = (Figure) o;
-            storage.put(figure.getId(),
-                    new FigureMetrics(figure.area(), figure.perimeter(), figure.volume()));
-        }
+    public void updateMetrics(Figure figure) {
+        storage.put(figure.getId(),
+                new FigureMetrics(figure.area(), figure.perimeter(), figure.volume()));
     }
 
     public FigureMetrics getMetrics(int figureId) {
@@ -74,6 +63,4 @@ public class Warehouse implements Observer {
                     area.toPlainString(), perimeter.toPlainString(), volume.toPlainString());
         }
     }
-
 }
-

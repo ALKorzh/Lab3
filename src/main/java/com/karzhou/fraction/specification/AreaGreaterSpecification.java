@@ -16,7 +16,6 @@ public class AreaGreaterSpecification implements Specification {
         if (figure == null || figure.area() == null) {
             return false;
         }
-        // Проверяем, что площадь фигуры больше threshold
         return figure.area().compareTo(threshold) > 0;
     }
 }

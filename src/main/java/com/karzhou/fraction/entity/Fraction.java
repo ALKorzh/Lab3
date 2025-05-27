@@ -28,7 +28,6 @@ public class Fraction implements Comparable<Fraction> {
         int gcd = gcd(Math.abs(numerator), Math.abs(denominator));
         numerator /= gcd;
         denominator /= gcd;
-        // гарантируем положительный знаменатель
         if (denominator < 0) {
             denominator = -denominator;
             numerator = -numerator;

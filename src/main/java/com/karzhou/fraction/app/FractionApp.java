@@ -2,8 +2,8 @@ package com.karzhou.fraction.app;
 
 import com.karzhou.fraction.entity.Fraction;
 import com.karzhou.fraction.util.FractionFileReader;
+import com.karzhou.fraction.exception.FractionFileReadException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FractionApp {
@@ -31,11 +31,10 @@ public class FractionApp {
                 System.out.printf("[%d]: %s%n", i, fractions.get(i));
             }
 
-        } catch (IOException e) {
+        } catch (FractionFileReadException e) {
             System.err.println("Error reading fractions file: " + e.getMessage());
         } catch (IllegalArgumentException | ArithmeticException e) {
             System.err.println("Invalid fraction data: " + e.getMessage());
         }
     }
 }
-

@@ -1,54 +1,50 @@
 package com.karzhou.fraction.repository;
 
 import com.karzhou.fraction.entity.Figure;
-import com.karzhou.fraction.observer.Observable;
-import com.karzhou.fraction.specification.Specification;
+import com.karzhou.fraction.observer.FigureObserver;
 import com.karzhou.fraction.warehouse.Warehouse;
+import com.karzhou.fraction.specification.Specification;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.karzhou.fraction.util.FigureComparators.*;
+
 public class FigureRepository {
     private final List<Figure> figures = new ArrayList<>();
-    private final Warehouse warehouse = Warehouse.getInstance();
 
     public void addFigure(Figure figure) {
-        figure.addObserver(warehouse);
+        figure.addObserver(new FigureObserver());
         figures.add(figure);
-        warehouse.update((Observable) figure);
+        figure.notifyObservers();
     }
 
     public void removeFigure(Figure figure) {
-        figure.removeObserver(warehouse);
         figures.remove(figure);
-        warehouse.removeMetrics(figure.getId());
+        Warehouse.getInstance().removeMetrics(figure.getId());
     }
 
-    // Универсальный запрос по спецификации
     public List<Figure> query(Specification<Figure> spec) {
         return figures.stream()
                 .filter(spec::isSatisfiedBy)
                 .collect(Collectors.toList());
     }
 
-    // Сортировки с учётом BigDecimal (сравнение через compareTo)
     public void sortByArea() {
-        figures.sort(Comparator.comparing(Figure::area));
+        figures.sort(BY_AREA);
     }
 
     public void sortByPerimeter() {
-        figures.sort(Comparator.comparing(Figure::perimeter));
+        figures.sort(BY_PERIMETER);
     }
 
     public void sortByVolume() {
-        figures.sort(Comparator.comparing(Figure::volume));
+        figures.sort(BY_VOLUME);
     }
 
     public void sortById() {
-        figures.sort(Comparator.comparingInt(Figure::getId));
+        figures.sort(BY_ID);
     }
 
     public List<Figure> getFigures() {

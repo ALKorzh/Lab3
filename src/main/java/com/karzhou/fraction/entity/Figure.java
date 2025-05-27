@@ -1,28 +1,26 @@
 package com.karzhou.fraction.entity;
 
 import com.karzhou.fraction.observer.Observable;
+import com.karzhou.fraction.util.IdGenerator;
 import java.math.BigDecimal;
 
 public abstract class Figure extends Observable {
-    private final int id; // уникальный идентификатор фигуры
-    private static int count = 0;
+    private final int id;
 
     public Figure() {
-        this.id = ++count;
+        this.id = IdGenerator.nextId();
     }
 
     public int getId() {
         return id;
     }
 
-    // Теперь возвращаем BigDecimal, чтобы было удобно работать с дробями и иррациональными числами
     public abstract BigDecimal area();
 
     public abstract BigDecimal perimeter();
 
     public abstract BigDecimal volume();
 
-    // Метод для уведомления об изменениях
     public void notifyChange() {
         notifyObservers();
     }
@@ -32,3 +30,4 @@ public abstract class Figure extends Observable {
         return "Figure{id=" + id + "}";
     }
 }
+

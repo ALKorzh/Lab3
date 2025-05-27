@@ -23,11 +23,9 @@ public class Triangle extends Figure {
     }
 
     private boolean isValidTriangle(Fraction a, Fraction b, Fraction c) {
-        // Проверка a > 0, b > 0, c > 0
         if (a.compareTo(Fraction.ZERO) <= 0 || b.compareTo(Fraction.ZERO) <= 0 || c.compareTo(Fraction.ZERO) <= 0) {
             return false;
         }
-        // Проверка треугольного неравенства a + b > c, a + c > b, b + c > a
         return a.add(b).compareTo(c) > 0 &&
                 a.add(c).compareTo(b) > 0 &&
                 b.add(c).compareTo(a) > 0;
@@ -50,13 +48,12 @@ public class Triangle extends Figure {
 
     private boolean isRightTriangle() {
         Fraction[] sides = {sideA, sideB, sideC};
-        Arrays.sort(sides, (f1, f2) -> f1.toBigDecimal().compareTo(f2.toBigDecimal())); // сортировка по величине
+        Arrays.sort(sides, (f1, f2) -> f1.toBigDecimal().compareTo(f2.toBigDecimal()));
 
         Fraction a = sides[0];
         Fraction b = sides[1];
         Fraction c = sides[2];
 
-        // Проверка: a^2 + b^2 ≈ c^2 (с учётом погрешности)
         BigDecimal lhs = a.multiply(a).toBigDecimal().add(b.multiply(b).toBigDecimal());
         BigDecimal rhs = c.multiply(c).toBigDecimal();
 
@@ -67,7 +64,6 @@ public class Triangle extends Figure {
 
     @Override
     public BigDecimal area() {
-        // Формула Герона: sqrt(p(p - a)(p - b)(p - c)), где p = perimeter / 2
         BigDecimal p = perimeter().divide(new BigDecimal(2), 10, RoundingMode.HALF_UP);
         BigDecimal a = sideA.toBigDecimal();
         BigDecimal b = sideB.toBigDecimal();
@@ -87,10 +83,9 @@ public class Triangle extends Figure {
 
     @Override
     public BigDecimal volume() {
-        return BigDecimal.ZERO; // плоская фигура
+        return BigDecimal.ZERO;
     }
 
-    // Геттеры и сеттеры с проверкой валидности
     public Fraction getSideA() {
         return sideA;
     }
@@ -130,7 +125,6 @@ public class Triangle extends Figure {
                 getId(), sideA, sideB, sideC, getType());
     }
 
-    // Метод вычисления квадратного корня BigDecimal (используется в площади)
     private static BigDecimal sqrt(BigDecimal value, int scale) {
         BigDecimal x0 = BigDecimal.ZERO;
         BigDecimal x1 = new BigDecimal(Math.sqrt(value.doubleValue()));

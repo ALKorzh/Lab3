@@ -4,7 +4,6 @@ import com.karzhou.fraction.entity.Fraction;
 
 public class FractionFactory {
 
-    // Создает Fraction из строки формата "num/den" или "num"
     public Fraction createFraction(String str) {
         if (str == null || str.isEmpty()) {
             throw new IllegalArgumentException("Fraction string is empty");
@@ -19,7 +18,6 @@ public class FractionFactory {
             int denominator = Integer.parseInt(parts[1].trim());
             return new Fraction(numerator, denominator);
         } else {
-            // Целое число, знаменатель = 1
             int numerator = Integer.parseInt(str);
             return new Fraction(numerator, 1);
         }
