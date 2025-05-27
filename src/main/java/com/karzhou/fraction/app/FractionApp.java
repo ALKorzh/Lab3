@@ -18,7 +18,6 @@ public class FractionApp {
                 System.out.printf("[%d]: %s%n", i, fractions.get(i));
             }
 
-            // Добавляем к каждой дроби с чётным индексом следующую дробь
             for (int i = 0; i < fractions.size() - 1; i += 2) {
                 Fraction current = fractions.get(i);
                 Fraction next = fractions.get(i + 1);
